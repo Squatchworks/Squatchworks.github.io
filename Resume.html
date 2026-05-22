@@ -212,6 +212,7 @@
         <div class="contact">
           Russells Point, Ohio &bull; 937-722-1922 &bull; JDBlackburn.developer@outlook.com<br>
           <a href="https://linkedin.com/in/squatchworks" target="_blank" rel="noopener noreferrer">linkedin.com/in/squatchworks</a> &bull;
+          <a href="https://github.com/Squatchworks" target="_blank" rel="noopener noreferrer">github.com/Squatchworks</a> &bull;
           <a href="https://squatchworks.github.io" target="_blank" rel="noopener noreferrer">Squatchworks.github.io</a>
         </div>
       </div>
@@ -220,7 +221,7 @@
         <aside class="sidebar">
           <div class="card">
             <h2 class="panel-title">Profile</h2>
-            <div class="summary">Gameplay and combat programmer focused on building responsive player systems, scalable gameplay architecture, and readable combat interactions in Unreal Engine 5. Strong foundation in C++, C#, AI behavior, state machines, animation support systems, and technical design, with experience in custom engine development using Vulkan, ECS architecture, REST API pipelines, and gameplay UI implementation.</div>
+            <div class="summary">Gameplay and combat programmer focused on building responsive player systems, scalable gameplay architecture, and readable combat interactions in Unreal Engine 5. Strong foundation in C++, C#, AI behavior, state machines, animation support systems, and technical design, with experience in custom engine development using Vulkan, ECS architecture, REST API pipelines, gameplay UI implementation, and reproducible C++ build engineering with vcpkg and Inno Setup.</div>
           </div>
 
           <div class="card">
@@ -238,9 +239,12 @@
               <div class="pill">Animation Support</div>
               <div class="pill">ECS Architecture</div>
               <div class="pill">Vulkan API</div>
+              <div class="pill">wxWidgets</div>
               <div class="pill">Collision Systems</div>
               <div class="pill">Projectile Lifecycle</div>
               <div class="pill">Git / Perforce</div>
+              <div class="pill">vcpkg</div>
+              <div class="pill">Inno Setup</div>
               <div class="pill">PostgreSQL / Flask</div>
               <div class="pill">OOP / Design Patterns</div>
               <div class="pill">Technical Design</div>
@@ -326,6 +330,22 @@
                 <li>Built a full cellular automaton simulation from scratch in C++ with a custom GUI powering over 10 interactive control states.</li>
                 <li>Developed systems for simulation management, cell-state editing, and pattern visualization enabling grids of 1000+ cells.</li>
                 <li>Shipped file persistence for saving and loading complex simulation states, enabling repeatable test configurations.</li>
+              </ul>
+            </article>
+
+            <!-- Cryptid Arithmetic — earliest coursework project, modernized and released as v1.2 in May 2026 -->
+            <article class="entry">
+              <div class="entry-head">
+                <h3>Cryptid Arithmetic <span class="badge">v1.2 Released</span></h3>
+                <div class="date">Originally 2023 &mdash; v1.2 May 2026</div>
+              </div>
+              <div class="subtitle">Solo Project &mdash; Earliest coursework, modernized and shipped to GitHub</div>
+              <div class="stack">C++17 &bull; wxWidgets 3.2 &bull; vcpkg manifest &bull; MSVC v143 &bull; Inno Setup</div>
+              <ul>
+                <li>Built one of my earliest coursework projects: a Windows desktop calculator with four-function arithmetic, trigonometric operations, modulo, and parenthesized expressions, with full input validation.</li>
+                <li>Returned to the project years later and rebuilt the toolchain end-to-end: migrated to Visual Studio 2022 / MSVC v143 and configured vcpkg manifest mode with a pinned baseline so the wxWidgets dependency builds reproducibly across machines.</li>
+                <li>Resolved CRT runtime alignment issues (/MD vs /MT) and Whole Program Optimization decoration mismatches across 41 unresolved external symbols using dumpbin directives analysis.</li>
+                <li>Packaged the v1.2.0 release as both an Inno Setup installer and a portable ZIP with bundled runtime DLLs, published to GitHub Releases under MIT license.</li>
               </ul>
             </article>
           </section>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cryptid Arithmetic | Jacob Blackburn</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">SQUATCHWORKS.DEV</div>
+                <div class="nav-links">
+                    <a href="../../index.html">Back to Portfolio</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero" style="text-align:left; padding: 5rem 0 3rem;">
+                <h1>Cryptid <span class="accent">Arithmetic</span></h1>
+                <div class="tags" style="margin-bottom: 2rem;">
+                    <span class="tag">C++17</span>
+                    <span class="tag">wxWidgets 3.2</span>
+                    <span class="tag">vcpkg</span>
+                    <span class="tag">MSVC v143</span>
+                    <span class="tag">Inno Setup</span>
+                    <span class="tag">Windows Desktop</span>
+                    <span class="tag">Solo Project</span>
+                    <span class="tag">v1.2 Released</span>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 280px;">
+                        <img src="Visuals/Hero.png" alt="Cryptid Arithmetic — complex expression entered" style="width: 100%; border-radius: 8px; border: 1px solid #1a1a1a;" />
+                        <p style="text-align:center; font-size: 0.75rem; color: #666; margin-top: 0.5rem;">EXPRESSION ENTRY — MODULO, MULTIPLICATION, NESTED PARENTHESES</p>
+                    </div>
+                    <div style="flex: 1; min-width: 280px;">
+                        <img src="Visuals/Hero2.png" alt="Cryptid Arithmetic — answer displayed" style="width: 100%; border-radius: 8px; border: 1px solid #1a1a1a;" />
+                        <p style="text-align:center; font-size: 0.75rem; color: #666; margin-top: 0.5rem;">EVALUATED RESULT &mdash; 10246</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="project-layout">
+                <div class="project-main">
+                    <section class="project-section">
+                        <h2 class="section-title">About</h2>
+                        <div class="prose">
+                            <p>Cryptid Arithmetic is a Windows desktop calculator built in C++17 with the wxWidgets 3.2 GUI framework. It supports four-function arithmetic, trigonometric operations (sin / cos / tan), modulo, parenthesized expressions, and signed-decimal input — all wrapped in a dark "Cryptid" theme with amber numbers, green operators, and red CLR/DEL keys.</p>
+                            <p>This was one of the very first coding projects I built during my early coursework at Full Sail. Years later — with real engine work, version control habits, and production experience under my belt — I came back to it, rebuilt the toolchain end-to-end, and shipped it as a proper v1.2 release. It is the first project published under the Squatchworks GitHub.</p>
+                        </div>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">My Contributions</h2>
+                        <ul class="contribution-list">
+                            <li>Designed and shipped the entire calculator solo: GUI layout, button grid, calculation engine, input validation, and theming</li>
+                            <li>Migrated the project to Visual Studio 2022 / MSVC v143 with a modern C++17 baseline</li>
+                            <li>Configured vcpkg manifest mode with a pinned <code>builtin-baseline</code> so the wxWidgets dependency builds reproducibly on any developer's machine</li>
+                            <li>Resolved CRT runtime alignment issues (/MD vs /MT) and Whole Program Optimization decoration mismatches that produced ~41 unresolved external symbols at link time, using dumpbin directives analysis</li>
+                            <li>Authored an Inno Setup installer that lands in Program Files, registers a clean uninstaller, and supports an optional desktop shortcut</li>
+                            <li>Packaged v1.2.0 as both an installer and a portable ZIP with bundled runtime DLLs, published to GitHub Releases under MIT license with full README, CHANGELOG, and roadmap documentation</li>
+                        </ul>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">Features</h2>
+                        <ul class="feature-list">
+                            <li><strong>Four-function arithmetic</strong> — addition, subtraction, multiplication, division with full input validation</li>
+                            <li><strong>Trigonometric operations</strong> — sin, cos, tan</li>
+                            <li><strong>Modulo and parentheses</strong> — supports compound expressions like <code>(569 % 7) + (852 * 6 + 2 * 9 - 8) * 2</code></li>
+                            <li><strong>Decimal and signed input</strong> — fractional values and negative numbers</li>
+                            <li><strong>Dark "Cryptid" theme</strong> — amber numbers, green operators, red CLR/DEL</li>
+                            <li><strong>wxWidgets GUI</strong> — native Windows look, resizable single-window layout</li>
+                            <li><strong>Inno Setup installer</strong> — installs to Program Files, Start Menu shortcut, clean uninstaller</li>
+                            <li><strong>Portable ZIP build</strong> — unzip-and-run, no install required</li>
+                            <li><strong>Reproducible builds</strong> — vcpkg manifest with pinned baseline</li>
+                        </ul>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">Engineering Lessons</h2>
+                        <div class="prose">
+                            <p>The v1.2 build cycle surfaced three lessons worth keeping:</p>
+                            <ul class="feature-list">
+                                <li><strong>/MD vs /MT matters.</strong> Mixing CRT models with a prebuilt third-party library produces ~40 unresolved external symbol errors. Match the lib's runtime model — wxWidgets vcpkg defaults to /MD.</li>
+                                <li><strong>/GL (Whole Program Optimization)</strong> can introduce spurious __declspec(dllimport) decoration mismatches when linking against /MD libs. Disable for clean Release builds unless every dependency was also built with /GL.</li>
+                                <li><strong>vcpkg manifest mode</strong> is the right answer for reproducible C++ builds. Pin a builtin-baseline so collaborators get byte-identical dependency versions instead of "works on my machine" surprises.</li>
+                            </ul>
+                            <p>Tools that earned their keep: <code>dumpbin /dependents</code> and <code>dumpbin /directives</code> for diagnosing link failures, and Inno Setup for clean Windows packaging.</p>
+                        </div>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">Installer</h2>
+                        <div style="margin-bottom: 1rem;">
+                            <img src="Visuals/Installer.png" alt="Cryptid Arithmetic Inno Setup installer wizard" style="width: 100%; max-width: 720px; border-radius: 8px; border: 1px solid #1a1a1a;" />
+                            <p style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">INNO SETUP INSTALLER WIZARD</p>
+                        </div>
+                        <div class="prose">
+                            <p>Cryptid Arithmetic ships as a signed Inno Setup installer that lands the app in Program Files, registers a clean uninstaller under Settings &rarr; Apps, and offers an optional desktop shortcut. The installer also ships with a portable ZIP alternative for users who prefer to drop the folder anywhere and run the exe directly.</p>
+                        </div>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">Roadmap</h2>
+                        <div class="prose">
+                            <p><strong>v1.3</strong> — Fix remaining compiler warnings, add custom app icon and version-info resource, replace <code>std::cout</code> streambuf redirect with direct <code>wxTextCtrl::AppendText</code>, add <code>OutputDebugString</code> hooks for debug builds.</p>
+                            <p><strong>v2.0 — "Squatch Companion UI"</strong> — A reimagined UI: a compact, dockable calculator window with an animated Squatch character that delivers answers. Floating always-on-top mode, idle / calculating / error animation states, speech-bubble answer reveal with subtle SFX. Possible migration to SFML or SDL2 for richer animation. Stretch goal: WebAssembly port for embed on this portfolio site.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="project-sidebar">
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Project Info</h3>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Role</span>
+                            <span class="sidebar-value">Sole Developer</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Type</span>
+                            <span class="sidebar-value">Solo Project</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Language</span>
+                            <span class="sidebar-value">C++17</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">GUI Framework</span>
+                            <span class="sidebar-value">wxWidgets 3.2</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Build System</span>
+                            <span class="sidebar-value">MSBuild + vcpkg</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Compiler</span>
+                            <span class="sidebar-value">MSVC v143</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Platform</span>
+                            <span class="sidebar-value">Windows 10/11 x64</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">License</span>
+                            <span class="sidebar-value">MIT</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Origin</span>
+                            <span class="sidebar-value">Early Coursework</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Released</span>
+                            <span class="sidebar-value">May 2026 (v1.2.0)</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Downloads</h3>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Installer</span>
+                            <span class="sidebar-value"><a href="https://github.com/Squatchworks/Tools_Cryptid_Arithmetic/releases/latest" target="_blank" style="color: var(--accent-color);">.exe</a></span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Portable</span>
+                            <span class="sidebar-value"><a href="https://github.com/Squatchworks/Tools_Cryptid_Arithmetic/releases/latest" target="_blank" style="color: var(--accent-color);">.zip</a></span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Releases</span>
+                            <span class="sidebar-value"><a href="https://github.com/Squatchworks/Tools_Cryptid_Arithmetic/releases" target="_blank" style="color: var(--accent-color);">All versions</a></span>
+                        </div>
+                    </div>
+
+                    <a href="https://github.com/Squatchworks/Tools_Cryptid_Arithmetic" class="github-btn" target="_blank">View Source on GitHub</a>
+                </aside>
+            </div>
+
+            <section id="contact" class="contact">
+                <h2 class="section-title">Get in Touch</h2>
+                <div class="contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <!-- Professional -->
+                    <div class="contact-group">
+                        <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em;">Professional</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <a href="mailto:JDBlackburn.developer@outlook.com" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fas fa-envelope" style="color: #4ade80;"></i> JDBlackburn.developer@outlook.com</a>
+                            <a href="https://linkedin.com/in/squatchworks" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fab fa-linkedin" style="color: #4ade80;"></i> LinkedIn</a>
+                            <a href="https://github.com/Squatchworks" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fab fa-github" style="color: #4ade80;"></i> GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- Community -->
+                    <div class="contact-group">
+                        <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em;">Community</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <span style="display: flex; align-items: center; gap: 0.75rem; color: #eee;"><i class="fab fa-discord" style="color: #4ade80;"></i> drsacksquatch69</span>
+                            <a href="https://discord.gg/Jet7KdppU7" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fas fa-server" style="color: #4ade80;"></i> Squatch and Goat Gaming</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Jacob Blackburn. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
