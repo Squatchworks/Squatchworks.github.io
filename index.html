@@ -574,6 +574,144 @@
             .nav-links a { font-size: 0.75rem; }
             .logo { font-size: 0.75rem; }
         }
+
+        /* Featured Project List */
+        .featured-projects { display: flex; flex-direction: column; gap: 0; }
+
+        .featured-project {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          min-height: 420px;
+          border-bottom: 1px solid #1a3a1a;
+          text-decoration: none;
+          color: inherit;
+          overflow: hidden;
+          transition: background 0.3s ease;
+          position: relative;
+        }
+        .featured-project:hover { background: #0a1a0a; }
+        .featured-project:nth-child(even) { direction: rtl; }
+        .featured-project:nth-child(even) > * { direction: ltr; }
+
+        .fp-image {
+          overflow: hidden;
+          position: relative;
+          min-height: 320px;
+        }
+        .fp-image img {
+          width: 100%; height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+          display: block;
+        }
+        .featured-project:hover .fp-image img { transform: scale(1.04); }
+
+        .fp-placeholder {
+          width: 100%; height: 100%;
+          background: linear-gradient(135deg, #060d06 0%, #0d2a1a 50%, #060d06 100%);
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          gap: 1rem; padding: 2rem;
+          text-align: center;
+        }
+        .fp-placeholder span { color: #1a3a1a; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; }
+
+        .fp-content {
+          padding: 3rem;
+          display: flex; flex-direction: column;
+          justify-content: center;
+          gap: 1rem;
+        }
+
+        .fp-number {
+          font-size: 0.75rem;
+          color: #2a4a2a;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          font-family: 'Cabinet Grotesk', sans-serif;
+        }
+
+        .fp-title {
+          font-size: 2rem;
+          font-family: 'Cabinet Grotesk', sans-serif;
+          font-weight: 800;
+          color: #e8e8e8;
+          line-height: 1.2;
+        }
+        .fp-title .accent { color: #4ade80; }
+
+        .fp-status {
+          font-size: 0.75rem;
+          color: #4ade80;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+        }
+
+        .fp-description {
+          font-size: 0.95rem;
+          color: #888;
+          line-height: 1.7;
+          max-width: 480px;
+        }
+
+        .fp-contributions {
+          list-style: none;
+          padding: 0; margin: 0;
+          display: flex; flex-direction: column; gap: 0.4rem;
+        }
+        .fp-contributions li {
+          font-size: 0.85rem;
+          color: #666;
+          padding-left: 1rem;
+          position: relative;
+        }
+        .fp-contributions li::before {
+          content: '\2014';
+          position: absolute; left: 0;
+          color: #4ade80;
+        }
+
+        .fp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .fp-tag {
+          font-size: 0.75rem;
+          padding: 0.25rem 0.6rem;
+          border: 1px solid #1a3a1a;
+          border-radius: 4px;
+          color: #4ade80;
+          font-family: 'Cabinet Grotesk', sans-serif;
+          letter-spacing: 0.05em;
+        }
+
+        .fp-links { display: flex; gap: 1.5rem; align-items: center; margin-top: 0.5rem; }
+        .fp-view-btn {
+          display: inline-flex; align-items: center; gap: 0.5rem;
+          padding: 0.6rem 1.4rem;
+          background: #4ade80;
+          color: #050a05;
+          font-size: 0.85rem;
+          font-weight: 700;
+          font-family: 'Cabinet Grotesk', sans-serif;
+          letter-spacing: 0.05em;
+          border-radius: 6px;
+          text-decoration: none;
+          transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .fp-view-btn:hover { background: #22c55e; transform: translateX(3px); }
+        .fp-github-link {
+          font-size: 0.85rem;
+          color: #4ade80;
+          text-decoration: none;
+          letter-spacing: 0.05em;
+        }
+        .fp-github-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+          .featured-project { grid-template-columns: 1fr; }
+          .featured-project:nth-child(even) { direction: ltr; }
+          .fp-image { min-height: 220px; }
+          .fp-content { padding: 2rem; }
+          .fp-title { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -638,144 +776,235 @@
          PROJECTS SECTION
     =================================================== -->
     <section id="projects">
-        <div class="section-header">
-            <p class="section-subtitle">Selected Work</p>
-            <h2 class="section-title">Projects</h2>
+      <div style="padding: 5rem 0 2rem;">
+        <h2 class="section-title">Projects</h2>
+        <p style="color:#555; font-size:0.9rem; margin-top:0.5rem;">Click any project to see the full breakdown.</p>
+      </div>
+
+      <div class="featured-projects">
+
+        <!-- 01 Shadow of Beginnings -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <div class="fp-placeholder">
+              <span>Trailer Coming Soon</span>
+            </div>
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">01 / 08</span>
+            <h2 class="fp-title">Shadow of <span class="accent">Beginnings</span></h2>
+            <span class="fp-status">&#9679; In Active Development</span>
+            <p class="fp-description">Commercial indie ARPG built in Unreal Engine 5.6. I lead all gameplay and combat programming &mdash; AI systems, animation pipeline, audio architecture, VFX, and game loop management.</p>
+            <ul class="fp-contributions">
+              <li>Full enemy AI &mdash; Behavior Trees, Blackboard, AIPerception</li>
+              <li>Spatial audio system with C++ timer-driven SFX variation</li>
+              <li>Hand-keyed animations in Blender, integrated via ABP</li>
+              <li>Chaos fracture destruction for Cinderhulk death sequence</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">Unreal Engine 5</span>
+              <span class="fp-tag">C++</span>
+              <span class="fp-tag">Blueprints</span>
+              <span class="fp-tag">Lead Programmer</span>
+              <span class="fp-tag">Commercial</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/ShadowOfBeginnings/index.html" class="fp-view-btn">View Project &rarr;</a>
+              <a href="https://github.com/Squatchworks/SOB_Shadow-of-Beginnings" target="_blank" class="fp-github-link" onclick="event.stopPropagation()">GitHub (Private) &#8599;</a>
+            </div>
+          </div>
         </div>
 
-        <div class="projects-grid">
-
-            <!-- Shadow of Beginnings (Active — In Development) -->
-            <a href="Projects/ShadowOfBeginnings/index.html" class="project-card">
-                <div class="project-img-container">
-                    <div class="project-img-placeholder">[ Coming Soon ]</div>
-                </div>
-                <div class="project-info">
-                    <h3>Shadow of Beginnings <span style="font-size:0.7em;color:#4ade80;">— In Development</span></h3>
-                    <p>Commercial indie ARPG in active development. I own gameplay systems, combat mechanics, AI behavior trees, animation, VFX, and audio integration in Unreal Engine 5.</p>
-                    <div class="tags">
-                        <span class="tag">Unreal Engine 5</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">Blueprints</span>
-                        <span class="tag">Lead Programmer</span>
-                    </div>
-                    <a href="https://github.com/Squatchworks/SOB_Shadow-of-Beginnings" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">View on GitHub &rarr;</a>
-                </div>
-            </a>
-
-            <!-- Arachnivasion -->
-            <a href="Projects/Arachnivasion/index.html" class="project-card">
-                <div class="project-img-container">
-                    <img src="Projects/Arachnivasion/Visuals/Gameplay.png" alt="Arachnivasion" class="project-img">
-                </div>
-                <div class="project-info">
-                    <h3>Arachnivasion</h3>
-                    <p>Vulkan-based 3D wave shooter with custom ECS. I implemented core player mechanics and a global leaderboard API across 4 development sprints.</p>
-                    <div class="tags">
-                        <span class="tag">C++</span>
-                        <span class="tag">Vulkan</span>
-                        <span class="tag">Python</span>
-                    </div>
-                    <a href="https://github.com/Squatchworks/Games_Cryptid_Arachnivasion-" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">View on GitHub &rarr;</a>
-                </div>
-            </a>
-
-            <!-- Vulkan ECS Engine -->
-            <a href="Projects/Dev4 unnamed project/index.html" class="project-card">
-                <div class="project-img-container">
-                    <div class="project-img-placeholder">[ Coming Soon ]</div>
-                </div>
-                <div class="project-info">
-                    <h3>Vulkan ECS Engine</h3>
-                    <p>The solo prototype precursor to Arachnivasion. Built custom Vulkan render pipeline and EnTT ECS architecture from scratch.</p>
-                    <div class="tags">
-                        <span class="tag">C++</span>
-                        <span class="tag">Vulkan</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Cryptid Tracker Mobile -->
-            <a href="Projects/Cryptid-tracker-mobile/index.html" class="project-card">
-                <div class="project-img-container">
-                    <div class="project-img-placeholder">[ Coming Soon ]</div>
-                </div>
-                <div class="project-info">
-                    <h3>Cryptid Tracker</h3>
-                    <p>Mobile Unity project for tracking and cataloging urban legends. Focused on UX design and mobile performance.</p>
-                    <div class="tags">
-                        <span class="tag">Unity</span>
-                        <span class="tag">Mobile</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Veggie Town Massacre -->
-            <a href="Projects/Veggie Town Massacre/index.html" class="project-card">
-                <div class="project-img-container">
-                    <img src="Projects/Veggie Town Massacre/Visuals/Screenshot 2026-04-06 192357.png" alt="Veggie Town Massacre" class="project-img">
-                </div>
-                <div class="project-info">
-                    <h3>Veggie Town Massacre</h3>
-                    <p>Unity wave shooter. Owned AI systems, level design, and UI architecture for this chaotic team project.</p>
-                    <div class="tags">
-                        <span class="tag">Unity</span>
-                        <span class="tag">C#</span>
-                    </div>
-                    <a href="https://github.com/Squatchworks/Games_Cryptid_VeggieTownMassacre" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">View on GitHub &rarr;</a>
-                </div>
-            </a>
-
-            <!-- Bricks Breaker -->
-            <a href="Projects/BricksBreaker/index.html" class="project-card">
-                <div class="project-img-container">
-                    <img src="Projects/BricksBreaker/Visuals/Gameplay.png" alt="Bricks Breaker" class="project-img">
-                </div>
-                <div class="project-info">
-                    <h3>Bricks Breaker</h3>
-                    <p>Solo academic project implementing classic arcade mechanics in C++. Focused on collision math and clean OOP.</p>
-                    <div class="tags">
-                        <span class="tag">C++</span>
-                    </div>
-                    <a href="https://github.com/Squatchworks/Crypt_Breaker" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">View on GitHub &rarr;</a>
-                </div>
-            </a>
-
-            <!-- Game of Life -->
-            <a href="Projects/GameOfLife/index.html" class="project-card">
-                <div class="project-img-container">
-                    <img src="Projects/GameOfLife/Visuals/Gosper Glider Gun.gif" alt="Game of Life" class="project-img">
-                </div>
-                <div class="project-info">
-                    <h3>Game of Life</h3>
-                    <p>Complete C++ implementation of Conway's cellular automaton with custom GUI and file persistence.</p>
-                    <div class="tags">
-                        <span class="tag">C++</span>
-                        <span class="tag">GUI</span>
-                    </div>
-                    <a href="https://github.com/Squatchworks/Sim_Cryptid_Emergence" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">View on GitHub &rarr;</a>
-                </div>
-            </a>
-
-            <!-- Cryptid Arithmetic -->
-            <a href="Projects/CryptidArithmetic/index.html" class="project-card">
-                <div class="project-img-container">
-                    <img src="Projects/CryptidArithmetic/Visuals/Hero.png" alt="Cryptid Arithmetic" class="project-img">
-                </div>
-                <div class="project-info">
-                    <h3>Cryptid Arithmetic <span style="font-size:0.7em;color:#4ade80;">v1.2 — Released</span></h3>
-                    <p>Earliest coursework project, modernized and shipped. Windows desktop calculator in C++17 with wxWidgets, vcpkg manifest mode, and an Inno Setup installer.</p>
-                    <div class="tags">
-                        <span class="tag">C++17</span>
-                        <span class="tag">wxWidgets</span>
-                        <span class="tag">vcpkg</span>
-                        <span class="tag">Windows</span>
-                    </div>
-                    <a href="https://github.com/Squatchworks/Tools_Cryptid_Arithmetic" target="_blank" class="project-repo-link" onclick="event.stopPropagation()">View on GitHub &rarr;</a>
-                </div>
-            </a>
-
+        <!-- 02 Arachnivasion -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <img src="Projects/Arachnivasion/Visuals/Gameplay.png" alt="Arachnivasion" />
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">02 / 08</span>
+            <h2 class="fp-title">Arachni<span class="accent">vasion</span></h2>
+            <p class="fp-description">Space Invaders reimagined in 3D &mdash; built directly on Vulkan with EnTT ECS, no engine abstraction. Features a live global leaderboard backed by a deployed Python/Flask API.</p>
+            <ul class="fp-contributions">
+              <li>Player shooting mechanics and projectile system</li>
+              <li>Enemy wave logic and behavior</li>
+              <li>Full leaderboard backend: Flask API, PostgreSQL, deployed on Render</li>
+              <li>In-game C++ HTTP client for score submission</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">C++</span>
+              <span class="fp-tag">Vulkan</span>
+              <span class="fp-tag">Python</span>
+              <span class="fp-tag">EnTT ECS</span>
+              <span class="fp-tag">Team Project</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/Arachnivasion/index.html" class="fp-view-btn">View Project &rarr;</a>
+              <a href="https://github.com/Squatchworks/Games_Cryptid_Arachnivasion-" target="_blank" class="fp-github-link" onclick="event.stopPropagation()">GitHub &#8599;</a>
+            </div>
+          </div>
         </div>
+
+        <!-- 03 Vulkan ECS Engine -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <div class="fp-placeholder"><span>Visuals Pending</span></div>
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">03 / 08</span>
+            <h2 class="fp-title">Vulkan <span class="accent">ECS Engine</span></h2>
+            <p class="fp-description">Solo prototype engine built before Arachnivasion. Custom Vulkan render pipeline and EnTT ECS architecture built from scratch &mdash; the foundation that fed into the team project.</p>
+            <ul class="fp-contributions">
+              <li>Custom Vulkan render pipeline from scratch</li>
+              <li>EnTT ECS architecture design and implementation</li>
+              <li>Solo project &mdash; 100% sole developer</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">C++</span>
+              <span class="fp-tag">Vulkan</span>
+              <span class="fp-tag">Solo</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/Dev4 unnamed project/index.html" class="fp-view-btn">View Project &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 Veggie Town Massacre -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <img src="Projects/Veggie Town Massacre/Visuals/Screenshot 2026-04-06 192357.png" alt="Veggie Town Massacre" />
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">04 / 08</span>
+            <h2 class="fp-title">Veggie Town <span class="accent">Massacre</span></h2>
+            <p class="fp-description">Unity 3D wave-based FPS with 13 unique enemy types, NavMesh AI, status effects, a boss fight, multi-gun system, day/night cycle, and toxic gas mechanics.</p>
+            <ul class="fp-contributions">
+              <li>Owned all AI systems &mdash; 13 enemy types with NavMesh</li>
+              <li>Level design and environment layout</li>
+              <li>UI architecture and HUD systems</li>
+              <li>Status effect and damage pipeline</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">Unity</span>
+              <span class="fp-tag">C#</span>
+              <span class="fp-tag">NavMesh AI</span>
+              <span class="fp-tag">Team Project</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/Veggie Town Massacre/index.html" class="fp-view-btn">View Project &rarr;</a>
+              <a href="https://github.com/Squatchworks/Games_Cryptid_VeggieTownMassacre" target="_blank" class="fp-github-link" onclick="event.stopPropagation()">GitHub &#8599;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 Cryptid Arithmetic -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <img src="Projects/CryptidArithmetic/Visuals/Hero.png" alt="Cryptid Arithmetic" />
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">05 / 08</span>
+            <h2 class="fp-title">Cryptid <span class="accent">Arithmetic</span></h2>
+            <span class="fp-status" style="color:#c9a227;">&#9679; v1.2 Released</span>
+            <p class="fp-description">Windows desktop calculator in C++17 with wxWidgets. Ships as an Inno Setup installer with reproducible vcpkg builds. The first project published under Squatchworks &mdash; earliest coursework modernized and shipped.</p>
+            <ul class="fp-contributions">
+              <li>Full calculator &mdash; GUI, engine, input validation, theming</li>
+              <li>Resolved 41 unresolved externals via dumpbin CRT analysis</li>
+              <li>vcpkg manifest mode with pinned baseline</li>
+              <li>Inno Setup installer + portable ZIP release</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">C++17</span>
+              <span class="fp-tag">wxWidgets</span>
+              <span class="fp-tag">vcpkg</span>
+              <span class="fp-tag">Solo</span>
+              <span class="fp-tag">Shipped</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/CryptidArithmetic/index.html" class="fp-view-btn">View Project &rarr;</a>
+              <a href="https://github.com/Squatchworks/Tools_Cryptid_Arithmetic" target="_blank" class="fp-github-link" onclick="event.stopPropagation()">GitHub &#8599;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 Game of Life -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <img src="Projects/GameOfLife/Visuals/Gosper Glider Gun.gif" alt="Game of Life" />
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">06 / 08</span>
+            <h2 class="fp-title">Game of <span class="accent">Life</span></h2>
+            <p class="fp-description">Complete C++ implementation of Conway's Game of Life cellular automaton. Custom GUI, 10+ interactive control states, file persistence for saving and loading simulation states, grids up to 1000 cells.</p>
+            <ul class="fp-contributions">
+              <li>Full simulation engine &mdash; tick logic, neighbor counting, state rules</li>
+              <li>Custom GUI with 10+ control states</li>
+              <li>File persistence &mdash; save and load simulation states</li>
+              <li>Grids scaling to 1000 cells</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">C++</span>
+              <span class="fp-tag">GUI</span>
+              <span class="fp-tag">Solo</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/GameOfLife/index.html" class="fp-view-btn">View Project &rarr;</a>
+              <a href="https://github.com/Squatchworks/Sim_Cryptid_Emergence" target="_blank" class="fp-github-link" onclick="event.stopPropagation()">GitHub &#8599;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 07 Bricks Breaker -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <img src="Projects/BricksBreaker/Visuals/Gameplay.png" alt="Bricks Breaker" />
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">07 / 08</span>
+            <h2 class="fp-title">Bricks <span class="accent">Breaker</span></h2>
+            <p class="fp-description">Solo academic brick breaker built in C++. Focused on collision math, vector management, multi-hit brick detection, and clean OOP design patterns.</p>
+            <ul class="fp-contributions">
+              <li>Collision math &mdash; ball/paddle/brick detection</li>
+              <li>Vector management and physics response</li>
+              <li>Multi-hit brick system and win/lose states</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">C++</span>
+              <span class="fp-tag">Solo</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/BricksBreaker/index.html" class="fp-view-btn">View Project &rarr;</a>
+              <a href="https://github.com/Squatchworks/Crypt_Breaker" target="_blank" class="fp-github-link" onclick="event.stopPropagation()">GitHub &#8599;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08 Cryptid Tracker -->
+        <div class="featured-project">
+          <div class="fp-image">
+            <div class="fp-placeholder"><span>Visuals Pending</span></div>
+          </div>
+          <div class="fp-content">
+            <span class="fp-number">08 / 08</span>
+            <h2 class="fp-title">Cryptid <span class="accent">Tracker</span></h2>
+            <p class="fp-description">Mobile Unity project for tracking and cataloging urban legends and cryptid sightings. Focused on UX design and mobile performance optimization.</p>
+            <ul class="fp-contributions">
+              <li>UX design and mobile UI layout</li>
+              <li>Mobile performance optimization</li>
+              <li>Cataloging and data management systems</li>
+            </ul>
+            <div class="fp-tags">
+              <span class="fp-tag">Unity</span>
+              <span class="fp-tag">Mobile</span>
+              <span class="fp-tag">C#</span>
+            </div>
+            <div class="fp-links">
+              <a href="Projects/Cryptid-tracker-mobile/index.html" class="fp-view-btn">View Project &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- Section Divider -->
