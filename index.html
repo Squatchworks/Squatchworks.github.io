@@ -117,6 +117,9 @@
             max-width: 320px;
             width: 80vw;
             filter: drop-shadow(0 0 40px rgba(74,222,128,0.4));
+            mix-blend-mode: multiply;
+            background: #000;
+            border-radius: 8px;
             opacity: 0;
             animation: fadeInUp 1.2s ease forwards 0.5s;
         }
@@ -192,6 +195,17 @@
             letter-spacing: 0.18em;
             color: var(--accent);
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo-img {
+            height: 32px;
+            width: auto;
+            mix-blend-mode: multiply;
+            background: #000;
+            border-radius: 4px;
         }
 
         .nav-links {
@@ -248,8 +262,7 @@
         }
 
         .hero-logo {
-            max-width: 200px;
-            filter: drop-shadow(0 0 30px rgba(74,222,128,0.5));
+            display: none;
         }
 
         .hero h1 {
@@ -492,7 +505,10 @@
             display: block;
             margin: 2rem auto 0;
             max-width: 180px;
-            opacity: 0.7;
+            opacity: 0.85;
+            mix-blend-mode: multiply;
+            background: #000;
+            border-radius: 6px;
             filter: drop-shadow(0 0 20px rgba(74,222,128,0.3));
         }
 
@@ -743,7 +759,7 @@
     =================================================== -->
     <header>
         <nav>
-            <div class="logo">SQUATCHWORKS.DEV</div>
+            <div class="logo"><img src="assets/logo.png" alt="Cryptid Forge Studios" class="nav-logo-img">SQUATCHWORKS.DEV</div>
             <div class="nav-links">
                 <a href="#projects">Projects</a>
                 <a href="#about">About</a>
@@ -1063,7 +1079,7 @@
          FOOTER
     =================================================== -->
     <footer>
-        <img src="assets/logo.png" style="max-width:80px; opacity:0.4; margin-bottom:1rem;" alt="Cryptid Forge Studios">
+        <img src="assets/logo.png" style="max-width:80px; opacity:0.6; margin-bottom:1rem; mix-blend-mode:multiply; background:#000; border-radius:4px;" alt="Cryptid Forge Studios">
         <p style="color:#2a4a2a; font-size:0.8rem; letter-spacing:0.1em;">CRYPTID FORGE STUDIOS LLC</p>
         <p>&copy; 2026 Jacob Blackburn. All rights reserved.</p>
     </footer>
