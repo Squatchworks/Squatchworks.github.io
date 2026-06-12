@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shadow of Beginnings | Jacob Blackburn</title>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">SQUATCHWORKS.DEV</div>
+                <div class="nav-links">
+                    <a href="../../index.html">Back to Portfolio</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero" style="text-align:left; padding: 5rem 0 3rem;">
+                <h1>Shadow of <span class="accent">Beginnings</span></h1>
+                <p style="color:#aaa; font-size:0.9rem; margin-bottom: 1.5rem;">Nebula Interactive &mdash; Active Development &mdash; Unreal Engine 5.6</p>
+                <div class="tags" style="margin-bottom: 2rem;">
+                    <span class="tag">Unreal Engine 5</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">Blueprints</span>
+                    <span class="tag">Lead Gameplay Programmer</span>
+                    <span class="tag">Commercial</span>
+                    <span class="tag">In Development</span>
+                </div>
+            </section>
+
+            <div class="project-layout">
+                <div class="project-main">
+                    <section class="project-section">
+                        <h2 class="section-title">About</h2>
+                        <div class="prose">
+                            <p>Shadow of Beginnings is a commercial indie ARPG developed in Unreal Engine 5.6 by Nebula Interactive. I serve as the lead gameplay and combat programmer, responsible for the core systems that drive the player experience — from moment-to-moment combat feel to AI-driven enemy encounters.</p>
+                            <p>The project is currently in active development with a playable demo as the immediate milestone target. A Steam store page is live and accepting wishlists.</p>
+                        </div>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">My Contributions</h2>
+                        <ul class="contribution-list">
+                            <li>Architected and implemented the full combat system in C++ — melee hit detection, damage pipeline, attribute component, and combat state management</li>
+                            <li>Built enemy AI from scratch using Unreal's Behavior Tree and Blackboard systems — Bramblekin forest enemy and Cinderhulk stone golem elite with unique patrol, detection, chase, and multi-attack behaviors</li>
+                            <li>Implemented spatial audio system for all enemies — 3D attenuation, idle ambience with randomized variation via C++ timer arrays, hit react SFX, attack grunts, aggro triggers, and death audio cleanup</li>
+                            <li>Designed and implemented Niagara VFX component architecture for hit impacts, death dissolve effects, and ability FX</li>
+                            <li>Built full animation pipeline — hand-keyed idle, walk, hit react, and death animations in Blender and integrated them into UE5 Animation Blueprints with additive layering</li>
+                            <li>Implementing Chaos physics fracture destruction for the Cinderhulk death sequence — procedural crumble with lava pool hazard spawner</li>
+                            <li>Integrated Enhanced Input system for player controls, pause menu flow, and game state management via custom ACGameLoopManager singleton</li>
+                        </ul>
+                    </section>
+
+                    <section class="project-section">
+                        <h2 class="section-title">Systems Built</h2>
+                        <ul class="feature-list">
+                            <li><strong>Combat System</strong> — damage pipeline, hit registration, attribute component (HP, team affiliation)</li>
+                            <li><strong>Enemy AI</strong> — modular Behavior Tree architecture, AIPerception, multi-range attack selection</li>
+                            <li><strong>Audio System</strong> — spatial 3D attenuation, C++ timer-driven SFX variation, audio component lifecycle management</li>
+                            <li><strong>VFX Component</strong> — centralized Niagara FX management on base character class</li>
+                            <li><strong>Animation Pipeline</strong> — Blender rigging and keyframing, UE5 ABP state machines, additive breathing overlay</li>
+                            <li><strong>Game Loop Manager</strong> — ACGameLoopManager singleton, eGameState enum, state transition system</li>
+                            <li><strong>Chaos Destruction</strong> — Geometry Collection fracture for Cinderhulk death (in progress)</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <aside class="project-sidebar">
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Project Info</h3>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Role</span>
+                            <span class="sidebar-value">Lead Gameplay Programmer</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Studio</span>
+                            <span class="sidebar-value">Nebula Interactive</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Engine</span>
+                            <span class="sidebar-value">Unreal Engine 5.6</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Language</span>
+                            <span class="sidebar-value">C++ / Blueprints</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Genre</span>
+                            <span class="sidebar-value">Action RPG</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Platform</span>
+                            <span class="sidebar-value">PC (Windows)</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Status</span>
+                            <span class="sidebar-value" style="color:#4ade80;">In Development</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Links</h3>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Steam</span>
+                            <span class="sidebar-value"><a href="https://store.steampowered.com" target="_blank" style="color: var(--accent-color);">Wishlist on Steam</a></span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Repo</span>
+                            <span class="sidebar-value"><a href="https://github.com/Squatchworks/SOB_Shadow-of-Beginnings" target="_blank" style="color: var(--accent-color);">GitHub (Private)</a></span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <section id="contact" class="contact">
+                <h2 class="section-title">Get in Touch</h2>
+                <div class="contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div class="contact-group">
+                        <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em;">Professional</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <a href="mailto:jdblackburn.developer@outlook.com" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fas fa-envelope" style="color: #4ade80;"></i> jdblackburn.developer@outlook.com</a>
+                            <a href="https://linkedin.com/in/squatchworks" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fab fa-linkedin" style="color: #4ade80;"></i> LinkedIn</a>
+                            <a href="https://github.com/Squatchworks" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fab fa-github" style="color: #4ade80;"></i> GitHub</a>
+                        </div>
+                    </div>
+                    <div class="contact-group">
+                        <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em;">Community</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <span style="display: flex; align-items: center; gap: 0.75rem; color: #eee;"><i class="fab fa-discord" style="color: #4ade80;"></i> drsacksquatch69</span>
+                            <a href="https://discord.gg/Jet7KdppU7" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #eee;"><i class="fas fa-server" style="color: #4ade80;"></i> Squatch and Goat Gaming</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Jacob Blackburn. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
