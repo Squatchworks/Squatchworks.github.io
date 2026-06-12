@@ -15,12 +15,391 @@
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome for social icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* =====================================================
+           CINEMATIC INTRO OVERLAY
+        ===================================================== */
+        #cinematic-intro {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            z-index: 9999;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #cinematic-intro.fade-out {
+            animation: introFadeOut 1s ease forwards;
+        }
+
+        @keyframes introFadeOut {
+            0%   { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
+
+        /* Forest background layers */
+        .forest-layer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .tree-shape {
+            position: absolute;
+            bottom: 0;
+        }
+
+        /* Layer 1 — farthest, darkest */
+        .forest-layer-1 .tree-shape { background: #060d06; }
+        /* Layer 2 — mid */
+        .forest-layer-2 .tree-shape { background: #0a1a0a; }
+        /* Layer 3 — closest */
+        .forest-layer-3 .tree-shape { background: #0d1f0d; }
+
+        /* Tree clip-path shapes */
+        .t1 { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        .t2 { clip-path: polygon(50% 0%, 5% 65%, 20% 65%, 5% 100%, 95% 100%, 80% 65%, 95% 65%); }
+        .t3 { clip-path: polygon(50% 0%, 10% 55%, 25% 55%, 10% 80%, 25% 80%, 5% 100%, 95% 100%, 75% 80%, 90% 80%, 75% 55%, 90% 55%); }
+        .t4 { clip-path: polygon(50% 0%, 15% 70%, 35% 70%, 0% 100%, 100% 100%, 65% 70%, 85% 70%); }
+
+        /* Layer 1 trees */
+        .forest-layer-1 .t-a { width: 80px; height: 220px; left: 2%; }
+        .forest-layer-1 .t-b { width: 110px; height: 300px; left: 10%; }
+        .forest-layer-1 .t-c { width: 70px; height: 190px; left: 20%; }
+        .forest-layer-1 .t-d { width: 130px; height: 340px; left: 30%; }
+        .forest-layer-1 .t-e { width: 90px; height: 250px; left: 42%; }
+        .forest-layer-1 .t-f { width: 75px; height: 210px; left: 52%; }
+        .forest-layer-1 .t-g { width: 120px; height: 310px; left: 62%; }
+        .forest-layer-1 .t-h { width: 85px; height: 230px; left: 74%; }
+        .forest-layer-1 .t-i { width: 100px; height: 270px; left: 84%; }
+        .forest-layer-1 .t-j { width: 60px; height: 170px; left: 94%; }
+
+        /* Layer 2 trees */
+        .forest-layer-2 .t-a { width: 60px; height: 180px; left: 0%; }
+        .forest-layer-2 .t-b { width: 90px; height: 260px; left: 7%; }
+        .forest-layer-2 .t-c { width: 55px; height: 160px; left: 16%; }
+        .forest-layer-2 .t-d { width: 100px; height: 290px; left: 25%; }
+        .forest-layer-2 .t-e { width: 80px; height: 240px; left: 37%; }
+        .forest-layer-2 .t-f { width: 65px; height: 200px; left: 47%; }
+        .forest-layer-2 .t-g { width: 95px; height: 270px; left: 56%; }
+        .forest-layer-2 .t-h { width: 70px; height: 210px; left: 68%; }
+        .forest-layer-2 .t-i { width: 85px; height: 250px; left: 78%; }
+        .forest-layer-2 .t-j { width: 110px; height: 300px; left: 88%; }
+
+        /* Layer 3 trees (closest, tallest) */
+        .forest-layer-3 .t-a { width: 110px; height: 360px; left: -2%; }
+        .forest-layer-3 .t-b { width: 75px; height: 280px; left: 8%; }
+        .forest-layer-3 .t-c { width: 130px; height: 400px; left: 17%; }
+        .forest-layer-3 .t-d { width: 60px; height: 220px; left: 33%; }
+        .forest-layer-3 .t-e { width: 90px; height: 310px; left: 44%; }
+        .forest-layer-3 .t-f { width: 120px; height: 380px; left: 55%; }
+        .forest-layer-3 .t-g { width: 70px; height: 250px; left: 68%; }
+        .forest-layer-3 .t-h { width: 140px; height: 420px; left: 78%; }
+        .forest-layer-3 .t-i { width: 80px; height: 290px; left: 91%; }
+
+        /* ---- Fireflies ---- */
+        .firefly {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 6px 2px rgba(74, 222, 128, 0.8);
+        }
+
+        @keyframes drift1  { 0%{transform:translate(0,0);opacity:0} 20%{opacity:1} 50%{transform:translate(18px,-30px);opacity:0.8} 80%{opacity:0.4} 100%{transform:translate(-10px,-55px);opacity:0} }
+        @keyframes drift2  { 0%{transform:translate(0,0);opacity:0} 25%{opacity:0.9} 55%{transform:translate(-22px,-40px);opacity:0.7} 85%{opacity:0.3} 100%{transform:translate(15px,-60px);opacity:0} }
+        @keyframes drift3  { 0%{transform:translate(0,0);opacity:0} 30%{opacity:1} 60%{transform:translate(30px,-25px);opacity:0.8} 90%{opacity:0.2} 100%{transform:translate(5px,-50px);opacity:0} }
+        @keyframes drift4  { 0%{transform:translate(0,0);opacity:0} 20%{opacity:0.8} 50%{transform:translate(-15px,-45px);opacity:0.6} 80%{opacity:0.3} 100%{transform:translate(20px,-70px);opacity:0} }
+        @keyframes drift5  { 0%{transform:translate(0,0);opacity:0} 35%{opacity:1} 65%{transform:translate(25px,-35px);opacity:0.9} 90%{opacity:0.2} 100%{transform:translate(-5px,-60px);opacity:0} }
+        @keyframes drift6  { 0%{transform:translate(0,0);opacity:0} 15%{opacity:0.7} 45%{transform:translate(-20px,-20px);opacity:1} 75%{opacity:0.4} 100%{transform:translate(10px,-55px);opacity:0} }
+        @keyframes drift7  { 0%{transform:translate(0,0);opacity:0} 22%{opacity:0.9} 52%{transform:translate(12px,-48px);opacity:0.6} 82%{opacity:0.3} 100%{transform:translate(-18px,-65px);opacity:0} }
+        @keyframes drift8  { 0%{transform:translate(0,0);opacity:0} 28%{opacity:1} 58%{transform:translate(-30px,-32px);opacity:0.7} 88%{opacity:0.2} 100%{transform:translate(8px,-58px);opacity:0} }
+        @keyframes drift9  { 0%{transform:translate(0,0);opacity:0} 18%{opacity:0.8} 48%{transform:translate(22px,-28px);opacity:1} 78%{opacity:0.5} 100%{transform:translate(-12px,-52px);opacity:0} }
+        @keyframes drift10 { 0%{transform:translate(0,0);opacity:0} 32%{opacity:0.9} 62%{transform:translate(-18px,-42px);opacity:0.8} 92%{opacity:0.2} 100%{transform:translate(16px,-68px);opacity:0} }
+        @keyframes drift11 { 0%{transform:translate(0,0);opacity:0} 24%{opacity:1} 54%{transform:translate(28px,-38px);opacity:0.7} 84%{opacity:0.3} 100%{transform:translate(-8px,-60px);opacity:0} }
+        @keyframes drift12 { 0%{transform:translate(0,0);opacity:0} 20%{opacity:0.7} 50%{transform:translate(-25px,-22px);opacity:0.9} 80%{opacity:0.4} 100%{transform:translate(14px,-56px);opacity:0} }
+
+        .firefly:nth-child(1)  { top: 55%; left: 12%; animation: drift1  4s  ease-in-out 0.2s infinite; }
+        .firefly:nth-child(2)  { top: 60%; left: 22%; animation: drift2  5s  ease-in-out 0.8s infinite; }
+        .firefly:nth-child(3)  { top: 48%; left: 35%; animation: drift3  3.5s ease-in-out 1.4s infinite; }
+        .firefly:nth-child(4)  { top: 65%; left: 45%; animation: drift4  4.5s ease-in-out 0.4s infinite; }
+        .firefly:nth-child(5)  { top: 52%; left: 58%; animation: drift5  3.8s ease-in-out 1.1s infinite; }
+        .firefly:nth-child(6)  { top: 62%; left: 70%; animation: drift6  4.2s ease-in-out 0.6s infinite; }
+        .firefly:nth-child(7)  { top: 50%; left: 80%; animation: drift7  5.2s ease-in-out 1.8s infinite; }
+        .firefly:nth-child(8)  { top: 68%; left: 5%;  animation: drift8  4.8s ease-in-out 0.9s infinite; }
+        .firefly:nth-child(9)  { top: 58%; left: 90%; animation: drift9  3.6s ease-in-out 0.3s infinite; }
+        .firefly:nth-child(10) { top: 42%; left: 28%; animation: drift10 4.4s ease-in-out 1.6s infinite; }
+        .firefly:nth-child(11) { top: 70%; left: 62%; animation: drift11 5.0s ease-in-out 0.7s infinite; }
+        .firefly:nth-child(12) { top: 45%; left: 50%; animation: drift12 3.9s ease-in-out 1.2s infinite; }
+
+        /* ---- Eyes ---- */
+        .eyes-container {
+            position: absolute;
+            top: 42%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        @keyframes eyeGlow {
+            0%   { opacity: 0; box-shadow: 0 0 0px 0px rgba(251,191,36,0); }
+            15%  { opacity: 0; }
+            35%  { opacity: 1; box-shadow: 0 0 24px 8px rgba(251,191,36,0.6), 0 0 60px 20px rgba(251,191,36,0.2); }
+            55%  { opacity: 0.2; box-shadow: 0 0 4px 2px rgba(251,191,36,0.2); } /* blink */
+            65%  { opacity: 0.9; box-shadow: 0 0 20px 7px rgba(251,191,36,0.5), 0 0 50px 18px rgba(251,191,36,0.18); }
+            80%  { opacity: 0.7; box-shadow: 0 0 16px 5px rgba(251,191,36,0.4); }
+            100% { opacity: 0; box-shadow: 0 0 0px 0px rgba(251,191,36,0); }
+        }
+
+        .eye {
+            width: 18px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fbbf24;
+            opacity: 0;
+            animation: eyeGlow 2.5s ease-in-out 1s forwards;
+        }
+
+        /* ---- Intro text ---- */
+        .intro-text-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        @keyframes textFadeIn {
+            0%   { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .intro-tagline {
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+            letter-spacing: 0.3em;
+            color: #c8d8c8;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: textFadeIn 1.2s ease forwards 0.8s;
+            margin-bottom: 1rem;
+        }
+
+        .intro-brand {
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: clamp(1.4rem, 5vw, 2.8rem);
+            letter-spacing: 0.3em;
+            color: #4ade80;
+            text-transform: uppercase;
+            font-weight: 800;
+            opacity: 0;
+            animation: textFadeIn 1.2s ease forwards 2.3s;
+        }
+
+        /* ---- Skip button ---- */
+        #intro-skip {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: 1px solid rgba(74, 222, 128, 0.4);
+            color: rgba(74, 222, 128, 0.7);
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.85rem;
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s;
+            z-index: 10000;
+        }
+
+        #intro-skip:hover {
+            border-color: #4ade80;
+            color: #4ade80;
+        }
+
+        /* =====================================================
+           RUSTLING TREES DIVIDER
+        ===================================================== */
+        .trees-divider {
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 90px;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            line-height: 0;
+        }
+
+        .trees-divider svg {
+            display: block;
+            flex-shrink: 0;
+        }
+
+        @keyframes rustle {
+            0%   { transform: rotate(0deg); transform-origin: bottom center; }
+            25%  { transform: rotate(-1deg); transform-origin: bottom center; }
+            75%  { transform: rotate(1deg); transform-origin: bottom center; }
+            100% { transform: rotate(0deg); transform-origin: bottom center; }
+        }
+
+        .trees-divider .rustling-tree {
+            animation: rustle 3s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .trees-divider .rustling-tree:nth-child(1) { animation-delay: 0s; }
+        .trees-divider .rustling-tree:nth-child(2) { animation-delay: 0.4s; }
+        .trees-divider .rustling-tree:nth-child(3) { animation-delay: 0.8s; }
+        .trees-divider .rustling-tree:nth-child(4) { animation-delay: 0.2s; }
+        .trees-divider .rustling-tree:nth-child(5) { animation-delay: 1.0s; }
+        .trees-divider .rustling-tree:nth-child(6) { animation-delay: 0.6s; }
+        .trees-divider .rustling-tree:nth-child(7) { animation-delay: 1.4s; }
+        .trees-divider .rustling-tree:nth-child(8) { animation-delay: 0.9s; }
+
+        /* =====================================================
+           FOOTPRINT TRAIL
+        ===================================================== */
+        #footprint-trail {
+            position: relative;
+            width: 100%;
+            height: 0;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .footprint {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .footprint.animate {
+            animation: footprintAppear 1.2s ease forwards;
+        }
+
+        @keyframes footprintAppear {
+            0%   { opacity: 0; transform: translateY(12px) var(--fp-rotate, rotate(0deg)); }
+            40%  { opacity: 0.15; transform: translateY(0) var(--fp-rotate, rotate(0deg)); }
+            70%  { opacity: 0.15; }
+            100% { opacity: 0.12; transform: translateY(0) var(--fp-rotate, rotate(0deg)); }
+        }
+
+        /* =====================================================
+           ABOUT SECTION — SQUATCH EASTER EGG
+        ===================================================== */
+        #about {
+            position: relative;
+        }
+
+        .squatch-silhouette {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.04;
+            pointer-events: none;
+            transition: opacity 3s ease;
+        }
+
+        #about:hover .squatch-silhouette {
+            opacity: 0.12;
+        }
+
+    </style>
 </head>
 <body>
+
+    <!-- ===================================================
+         CINEMATIC INTRO OVERLAY
+    =================================================== -->
+    <div id="cinematic-intro">
+        <!-- Forest layer 1 — farthest -->
+        <div class="forest-layer forest-layer-1">
+            <div class="tree-shape t1 t-a"></div>
+            <div class="tree-shape t2 t-b"></div>
+            <div class="tree-shape t3 t-c"></div>
+            <div class="tree-shape t1 t-d"></div>
+            <div class="tree-shape t4 t-e"></div>
+            <div class="tree-shape t2 t-f"></div>
+            <div class="tree-shape t1 t-g"></div>
+            <div class="tree-shape t3 t-h"></div>
+            <div class="tree-shape t4 t-i"></div>
+            <div class="tree-shape t1 t-j"></div>
+        </div>
+
+        <!-- Forest layer 2 — mid -->
+        <div class="forest-layer forest-layer-2">
+            <div class="tree-shape t2 t-a"></div>
+            <div class="tree-shape t1 t-b"></div>
+            <div class="tree-shape t4 t-c"></div>
+            <div class="tree-shape t3 t-d"></div>
+            <div class="tree-shape t1 t-e"></div>
+            <div class="tree-shape t2 t-f"></div>
+            <div class="tree-shape t4 t-g"></div>
+            <div class="tree-shape t1 t-h"></div>
+            <div class="tree-shape t3 t-i"></div>
+            <div class="tree-shape t2 t-j"></div>
+        </div>
+
+        <!-- Forest layer 3 — closest -->
+        <div class="forest-layer forest-layer-3">
+            <div class="tree-shape t3 t-a"></div>
+            <div class="tree-shape t1 t-b"></div>
+            <div class="tree-shape t4 t-c"></div>
+            <div class="tree-shape t2 t-d"></div>
+            <div class="tree-shape t1 t-e"></div>
+            <div class="tree-shape t3 t-f"></div>
+            <div class="tree-shape t2 t-g"></div>
+            <div class="tree-shape t4 t-h"></div>
+            <div class="tree-shape t1 t-i"></div>
+        </div>
+
+        <!-- Fireflies -->
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+
+        <!-- Eyes -->
+        <div class="eyes-container">
+            <div class="eye"></div>
+            <div class="eye"></div>
+        </div>
+
+        <!-- Intro text -->
+        <div class="intro-text-container">
+            <div class="intro-tagline">In the woods&hellip; something builds.</div>
+            <div class="intro-brand">Squatch.Dev</div>
+        </div>
+
+        <!-- Skip button -->
+        <button id="intro-skip">SKIP &rarr;</button>
+    </div>
+
     <div class="container">
         <header>
             <nav>
-                <div class="logo">SQUATCHWORKS.DEV</div>
+                <div class="logo">SQUATCHWORKS.DEV 🐾</div>
                 <div class="nav-links">
                     <a href="#projects">Projects</a>
                     <a href="#about">About</a>
@@ -32,8 +411,101 @@
 
         <section class="hero">
             <h1>Jacob Blackburn | <span class="accent">Squatch</span></h1>
-            <p>Somewhere between the code and the cryptids, great games get made. Gameplay Programmer & Developer dedicated to building robust systems and immersive experiences.</p>
+            <p>Co-Founder &amp; CEO &middot; Cryptid Forge Studios LLC &nbsp;|&nbsp; Gameplay &amp; Combat Programmer &middot; Unreal Engine 5 / C++ &nbsp;|&nbsp; Building Shadow of Beginnings &nbsp;|&nbsp; Graduating July 2026</p>
         </section>
+
+        <!-- ===================================================
+             RUSTLING TREES DIVIDER
+        =================================================== -->
+        <div class="trees-divider" aria-hidden="true">
+            <!-- Tree 1 — tall -->
+            <svg class="rustling-tree" width="38" height="82" viewBox="0 0 38 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="19,0 0,82 38,82" fill="#0a1a0a"/>
+            </svg>
+            <!-- Tree 2 — medium with tiers -->
+            <svg class="rustling-tree" width="48" height="68" viewBox="0 0 48 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="24,0 4,40 14,40 2,68 46,68 34,40 44,40" fill="#0d1f0d"/>
+            </svg>
+            <!-- Tree 3 — tall slim -->
+            <svg class="rustling-tree" width="30" height="88" viewBox="0 0 30 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="15,0 0,88 30,88" fill="#091509"/>
+            </svg>
+            <!-- Tree 4 — wide layered -->
+            <svg class="rustling-tree" width="58" height="75" viewBox="0 0 58 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="29,0 8,35 20,35 4,60 22,60 6,75 52,75 36,60 54,60 38,35 50,35" fill="#0a1a0a"/>
+            </svg>
+            <!-- Tree 5 — medium -->
+            <svg class="rustling-tree" width="42" height="72" viewBox="0 0 42 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="21,0 2,72 40,72" fill="#0e200e"/>
+            </svg>
+            <!-- Tree 6 — shorter bushy -->
+            <svg class="rustling-tree" width="54" height="58" viewBox="0 0 54 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="27,0 6,32 18,32 2,58 52,58 36,32 48,32" fill="#0b1c0b"/>
+            </svg>
+            <!-- Tree 7 — tall -->
+            <svg class="rustling-tree" width="34" height="90" viewBox="0 0 34 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="17,0 0,90 34,90" fill="#0a1a0a"/>
+            </svg>
+            <!-- Tree 8 — medium tiered -->
+            <svg class="rustling-tree" width="44" height="65" viewBox="0 0 44 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="22,0 5,38 16,38 0,65 44,65 28,38 39,38" fill="#0d1f0d"/>
+            </svg>
+        </div>
+
+        <!-- ===================================================
+             FOOTPRINT TRAIL
+        =================================================== -->
+        <div id="footprint-trail" aria-hidden="true">
+            <!-- Footprints: alternating left/right, diagonal from bottom-left to upper-right -->
+            <!-- Left foot 1 -->
+            <svg class="footprint" id="fp1" style="bottom: -40px; left: 4%; --fp-rotate: rotate(-18deg);" width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="32" rx="13" ry="18" fill="#1a3a1a"/>
+                <ellipse cx="9"  cy="14" rx="4.5" ry="5" fill="#1a3a1a"/>
+                <ellipse cx="16" cy="10" rx="4"   ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="23" cy="10" rx="3.8" ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="29" cy="14" rx="3.5" ry="4"   fill="#1a3a1a"/>
+            </svg>
+            <!-- Right foot 1 -->
+            <svg class="footprint" id="fp2" style="bottom: -100px; left: 10%; --fp-rotate: rotate(14deg);" width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="32" rx="13" ry="18" fill="#1a3a1a"/>
+                <ellipse cx="7"  cy="14" rx="3.5" ry="4" fill="#1a3a1a"/>
+                <ellipse cx="13" cy="10" rx="3.8" ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="20" cy="10" rx="4"   ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="27" cy="14" rx="4.5" ry="5"   fill="#1a3a1a"/>
+            </svg>
+            <!-- Left foot 2 -->
+            <svg class="footprint" id="fp3" style="bottom: -170px; left: 17%; --fp-rotate: rotate(-16deg);" width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="32" rx="13" ry="18" fill="#1a3a1a"/>
+                <ellipse cx="9"  cy="14" rx="4.5" ry="5" fill="#1a3a1a"/>
+                <ellipse cx="16" cy="10" rx="4"   ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="23" cy="10" rx="3.8" ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="29" cy="14" rx="3.5" ry="4"   fill="#1a3a1a"/>
+            </svg>
+            <!-- Right foot 2 -->
+            <svg class="footprint" id="fp4" style="bottom: -240px; left: 23%; --fp-rotate: rotate(12deg);" width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="32" rx="13" ry="18" fill="#1a3a1a"/>
+                <ellipse cx="7"  cy="14" rx="3.5" ry="4" fill="#1a3a1a"/>
+                <ellipse cx="13" cy="10" rx="3.8" ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="20" cy="10" rx="4"   ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="27" cy="14" rx="4.5" ry="5"   fill="#1a3a1a"/>
+            </svg>
+            <!-- Left foot 3 -->
+            <svg class="footprint" id="fp5" style="bottom: -310px; left: 30%; --fp-rotate: rotate(-20deg);" width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="32" rx="13" ry="18" fill="#1a3a1a"/>
+                <ellipse cx="9"  cy="14" rx="4.5" ry="5" fill="#1a3a1a"/>
+                <ellipse cx="16" cy="10" rx="4"   ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="23" cy="10" rx="3.8" ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="29" cy="14" rx="3.5" ry="4"   fill="#1a3a1a"/>
+            </svg>
+            <!-- Right foot 3 -->
+            <svg class="footprint" id="fp6" style="bottom: -380px; left: 36%; --fp-rotate: rotate(16deg);" width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="32" rx="13" ry="18" fill="#1a3a1a"/>
+                <ellipse cx="7"  cy="14" rx="3.5" ry="4" fill="#1a3a1a"/>
+                <ellipse cx="13" cy="10" rx="3.8" ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="20" cy="10" rx="4"   ry="4.5" fill="#1a3a1a"/>
+                <ellipse cx="27" cy="14" rx="4.5" ry="5"   fill="#1a3a1a"/>
+            </svg>
+        </div>
 
                 <section id="projects">
             <h2 class="section-title">Projects</h2>
@@ -186,6 +658,23 @@
         
         <section id="about" class="about">
             <h2 class="section-title">About Me</h2>
+
+            <!-- Hidden Squatch silhouette Easter egg -->
+            <svg class="squatch-silhouette" aria-hidden="true" width="180" height="280" viewBox="0 0 180 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body -->
+                <ellipse cx="90" cy="155" rx="62" ry="78" fill="#4ade80"/>
+                <!-- Head -->
+                <ellipse cx="90" cy="68" rx="36" ry="40" fill="#4ade80"/>
+                <!-- Left leg -->
+                <ellipse cx="66" cy="244" rx="20" ry="34" fill="#4ade80"/>
+                <!-- Right leg -->
+                <ellipse cx="114" cy="244" rx="20" ry="34" fill="#4ade80"/>
+                <!-- Left arm -->
+                <ellipse cx="30" cy="165" rx="16" ry="42" transform="rotate(-15 30 165)" fill="#4ade80"/>
+                <!-- Right arm -->
+                <ellipse cx="150" cy="165" rx="16" ry="42" transform="rotate(15 150 165)" fill="#4ade80"/>
+            </svg>
+
             <div class="about-content" style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
                 <p>I am a highly driven Gameplay Programmer specializing in **C++ engine architecture** and **Unreal Engine 5** development. My expertise lies in the bridge between technical design and gameplay systems—whether it's building custom Vulkan renderers from the ground up or architecting complex AI behavior trees in Unity.</p>
                 <p>Currently nearing completion of my Bachelor's degree in Game Development at Full Sail University, I have spent the last few years mastering the systems that make games work. From handling low-level memory management to deploying global leaderboard APIs, I focus on creating code that is as scalable as it is performant.</p>
@@ -221,5 +710,56 @@
             <p>&copy; 2026 Jacob Blackburn. All rights reserved.</p>
         </footer>
     </div>
+
+    <script>
+        // =====================================================
+        // CINEMATIC INTRO — sessionStorage guard
+        // =====================================================
+        (function () {
+            var intro = document.getElementById('cinematic-intro');
+
+            // If already seen this session, skip immediately
+            if (sessionStorage.getItem('squatch_intro_seen')) {
+                intro.style.display = 'none';
+                return;
+            }
+
+            // Block scrolling while intro plays
+            document.body.style.overflow = 'hidden';
+
+            function dismissIntro() {
+                intro.classList.add('fade-out');
+                sessionStorage.setItem('squatch_intro_seen', '1');
+                setTimeout(function () {
+                    intro.style.display = 'none';
+                    document.body.style.overflow = '';
+                    animateFootprints();
+                }, 1000);
+            }
+
+            // Auto-dismiss after 4 seconds
+            setTimeout(dismissIntro, 4000);
+
+            // Skip button
+            document.getElementById('intro-skip').addEventListener('click', dismissIntro);
+        })();
+
+        // =====================================================
+        // FOOTPRINT TRAIL — animate after intro
+        // =====================================================
+        function animateFootprints() {
+            var prints = document.querySelectorAll('.footprint');
+            prints.forEach(function (print, i) {
+                setTimeout(function () {
+                    print.classList.add('animate');
+                }, i * 350);
+            });
+        }
+
+        // If intro was already skipped (sessionStorage set), still animate footprints on load
+        if (sessionStorage.getItem('squatch_intro_seen')) {
+            window.addEventListener('DOMContentLoaded', animateFootprints);
+        }
+    </script>
 </body>
 </html>
